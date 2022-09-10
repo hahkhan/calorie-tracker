@@ -8,16 +8,18 @@ router.route("/").get((req,res)=>{
 });
 
 router.route("/add").post((req,res)=>{
-    const username = req.body.username;
-    const desc = req.body.description;
-    const cal = Number(req.body.calories);
+    const name = req.body.name;
+    const description= req.body.description;
+    const calories = Number(req.body.calories);
     const date = Date.parse(req.body.date);
     const newFood = new FoodModel(
-        username,
-        desc,
-        cal,
-        date,
-    )
+        {
+            name,
+            calories,
+            description,
+            date,
+        }
+    );
     newFood.save()
     .then(()=>res.json("New Food added"))
     .catch((err)=>{res.status(400).json(err)})
